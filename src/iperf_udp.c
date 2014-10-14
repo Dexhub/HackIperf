@@ -51,6 +51,7 @@
  *
  * receives the data for UDP
  */
+long long counter  = 0;
 int
 iperf_udp_recv(struct iperf_stream *sp)
 {
@@ -170,7 +171,12 @@ iperf_udp_send(struct iperf_stream *sp)
 	
     }
 
-    r = Nwrite(sp->socket, sp->buffer, size, Pudp);
+//    r = Nwrite(sp->socket, sp->buffer, size, Pudp);
+//
+    char buf[2048];
+    sprintf(buf, "%lld", ++counter);
+        
+      r = Nwrite(sp->socket, buf, sizeof(buf), Pudp);
 
     if (r < 0)
 	return r;
